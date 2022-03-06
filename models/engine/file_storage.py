@@ -43,3 +43,7 @@ class FileStorage:
     def all(self):
         """class to return the class atribute objects"""
         return FileStorage.__objects
+
+    def reset(self):
+        """class to clear the cache  data on __object"""
+        self.__objects.clear()
