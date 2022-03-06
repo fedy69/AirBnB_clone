@@ -35,3 +35,13 @@ class BaseModel:
         """class to save the new informations to the class object"""
         self.updated_at = datetime.now()
         models.storage.save()
+
+    def to_dict(self):
+        """class to return dictionary representaton of the instance"""
+        dict_repr = {}
+        for key, value in self.__dict__.items():
+            dict_repr[key] = value
+            if isinstance(value, datetime):
+                dict_repr[key] = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        dict_repr["__class__"] = type(self).__name__
+        return dict_repr
