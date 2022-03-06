@@ -25,3 +25,17 @@ class Objects(dict):
             return super(Objects, self).pop(key)
         except Exception as e:
             raise Exception("** no instance found **")
+
+
+class FileStorage:
+    """
+    class to serializes instances to a JSON file and
+    deserializes JSON file to instances.
+    """
+
+    __file_path = "file.json"
+    __objects = Objects()
+
+    def __init__(self):
+        """the initialze method"""
+        super().__init__()
