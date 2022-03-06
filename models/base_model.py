@@ -2,6 +2,7 @@
 """
 The base class that defines all common attributes/methods for other classes.
 """
+
 import uuid
 from datetime import datetime
 import models
@@ -29,3 +30,8 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
+
+    def save(self):
+        """class to save the new informations to the class object"""
+        self.updated_at = datetime.now()
+        models.storage.save()
