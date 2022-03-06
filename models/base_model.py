@@ -45,3 +45,8 @@ class BaseModel:
                 dict_repr[key] = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
         dict_repr["__class__"] = type(self).__name__
         return dict_repr
+
+    def __str__(self):
+        """class to return the string formated message when instance is called"""
+        clName = self.__class__.__name__
+        return "[{}] ({}) {}".format(clName, self.id, self.__dict__)
