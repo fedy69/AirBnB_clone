@@ -65,3 +65,21 @@ class FileStorage:
                     cls=models.base_model.BaseModelEncoder
                     )
                 )
+
+    def reload(self):
+        """class that deserializes the JSON file to __objects"""
+
+        file = FileStorage.__file_path
+        if not os.path.exists(file):
+            return
+        try:
+            with open(file, mode="r+", encoding="utf-8") as f:
+                file_string = f.read()
+                data = json.loads(file_string)
+                for object_key, model_data in data.items():
+                    model_name, model_id = object_key.split('.')
+                    model = models.classes[model_name](**model_data)
+                    self.new(model)
+
+        except Exception as e:
+            print(e)
