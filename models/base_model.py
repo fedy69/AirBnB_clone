@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 """
-The base class that defines all common attributes/methods for other classes.
+The base class that defines all common attributes/methods.
 """
 
 import uuid
 from datetime import datetime
 import models
+from json import JSONEncoder
 
 
 class BaseModel:
-    """
-   The BaseModel class 
-    """
+    """The BaseModel class"""
 
     def __init__(self, *args, **kwargs):
         """init the instance of the class"""
@@ -47,6 +46,17 @@ class BaseModel:
         return dict_repr
 
     def __str__(self):
-        """class to return the string formated message when instance is called"""
+        """class to return the string formated mesg when instance is called"""
         clName = self.__class__.__name__
         return "[{}] ({}) {}".format(clName, self.id, self.__dict__)
+
+
+class BaseModelEncoder(JSONEncoder):
+    """The class JSON encoder
+    """
+
+    def default(self, o):
+        """ The class default"""
+        if isinstance(o, BaseModel):
+            return o.to_dict()
+        return super().default(o)
