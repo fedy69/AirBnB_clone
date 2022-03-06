@@ -39,3 +39,7 @@ class FileStorage:
     def __init__(self):
         """the initialze method"""
         super().__init__()
+
+    def all(self):
+        """class to return the class atribute objects"""
+        return FileStorage.__objects
