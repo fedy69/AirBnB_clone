@@ -53,3 +53,15 @@ class FileStorage:
         if obj is not None:
             key = '{}.{}'.format(type(obj).__name__, obj.id)
             self.__objects[key] = obj
+
+    def save(self):
+        """ class that serializes __objects to the JSON file """
+        file = FileStorage.__file_path
+
+        with open(file, mode="w", encoding="utf-8") as f:
+            f.write(
+                json.dumps(
+                    FileStorage.__objects,
+                    cls=models.base_model.BaseModelEncoder
+                    )
+                )
