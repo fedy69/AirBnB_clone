@@ -47,3 +47,9 @@ class FileStorage:
     def reset(self):
         """class to clear the cache  data on __object"""
         self.__objects.clear()
+
+    def new(self, obj):
+        """class that sets in __objects the obj with key <obj class name>.id"""
+        if obj is not None:
+            key = '{}.{}'.format(type(obj).__name__, obj.id)
+            self.__objects[key] = obj
