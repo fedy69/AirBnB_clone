@@ -92,3 +92,9 @@ class FileStorage:
     def find(self, obj_name, obj_id):
         """class to find object with id `obj_id`"""
         return self.__objects["{}.{}".format(obj_name, obj_id)]
+
+    def delete(self, obj_name, obj_id):
+        """
+        class to delete object with id `obj_id`
+        """
+        return self.__objects.pop("{}.{}".format(obj_name, obj_id))
