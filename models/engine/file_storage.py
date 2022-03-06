@@ -88,3 +88,7 @@ class FileStorage:
         """class to update object with id `obj_id`"""
         model = self.__objects["{}.{}".format(obj_name, obj_id)]
         setattr(model, attr, value)
+
+    def find(self, obj_name, obj_id):
+        """class to find object with id `obj_id`"""
+        return self.__objects["{}.{}".format(obj_name, obj_id)]
