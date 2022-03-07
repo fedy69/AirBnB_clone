@@ -18,6 +18,7 @@ class FileStorage:
     attr1(__file_path): path to the JSON file
     attr2(__objects): dictionary for all objects
     """
+
     __file_path = "file.json"
     __objects = {}
 
@@ -34,7 +35,7 @@ class FileStorage:
         dictionary = {}
         for key, value in self.__objects.items():
             dictionary[key] = value.to_dict()
-        with open(self.__file_path, "w", encoding='utf-8') as w:
+        with open(self.__file_path, "w", encoding="utf-8") as w:
             json.dump(dictionary, w)
 
     def reload(self):
@@ -47,7 +48,8 @@ class FileStorage:
             "City": City,
             "Amenity": Amenity,
             "Place": Place,
-            "Review": Review}
+            "Review": Review,
+        }
         try:
             with open(self.__file_path, "r") as r:
                 dictionaryofdictionaries = json.load(r)
