@@ -1,62 +1,47 @@
 #!/usr/bin/python3
-"""
-The base class that defines all common attributes/methods.
-"""
+"""This module creates the BaseModel class"""
 
-import uuid
-from datetime import datetime
 import models
-from json import JSONEncoder
+from uuid import uuid4
+from datetime import datetime
 
 
 class BaseModel:
-    """The BaseModel class"""
-
+    """A class named BaseModel
+    Attributes:
+    attr1(id): object id
+    attr2(created_at): datetime instance is created
+    attr3(updated_at): datetime instance is created and updated when changed
+    """
     def __init__(self, *args, **kwargs):
-        """init the instance of the class"""
+        """Initiliazes an instance of BaseModel"""
         if kwargs:
             for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(
-                            value,
-                            '%Y-%m-%dT%H:%M:%S.%f')
-                elif key == "__class__":
-                    continue
-
-                setattr(self, key, value)
+                if key == "updated_at" or key == "created_at":
+                    dt_obj = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, key, dt_obj)
+                elif key != "__class__":
+                    setattr(self, key, value)
         else:
-            self.id = str(uuid.uuid4())
+            self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
 
+    def __str__(self):
+        """Returns string representation of BaseModel instance"""
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
+
     def save(self):
-        """class to save the new informations to the class object"""
+        """updates public instance attr updated_at with current datetime"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """class to return dictionary representaton of the instance"""
-        dict_repr = {}
-        for key, value in self.__dict__.items():
-            dict_repr[key] = value
-            if isinstance(value, datetime):
-                dict_repr[key] = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        dict_repr["__class__"] = type(self).__name__
-        return dict_repr
-
-    def __str__(self):
-        """class to return the string formated mesg when instance is called"""
-        clName = self.__class__.__name__
-        return "[{}] ({}) {}".format(clName, self.id, self.__dict__)
-
-
-class BaseModelEncoder(JSONEncoder):
-    """The class JSON encoder
-    """
-
-    def default(self, o):
-        """ The class default"""
-        if isinstance(o, BaseModel):
-            return o.to_dict()
-        return super().default(o)
+        """returns a dictionary containing all keys/values of __dict__"""
+        newdict = self.__dict__.copy()
+        newdict['created_at'] = datetime.isoformat(newdict['created_at'])
+        newdict['updated_at'] = datetime.isoformat(newdict['updated_at'])
+        newdict['__class__'] = self.__class__.__name__
+        return newdict
