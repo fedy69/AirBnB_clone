@@ -1,100 +1,62 @@
 #!/usr/bin/python3
-"""
-The storage file:  serializes instances to a JSON file and
-    deserializes JSON file to instances:
-"""
+"""This module serializes and deserializes instances"""
 
 import json
-import models
-import os
-
-
-class Objects(dict):
-    """The class object"""
-
-    def __getitem__(self, key):
-        """the get item"""
-        try:
-            return super(Objects, self).__getitem__(key)
-        except Exception as e:
-            raise Exception("** no instance found **")
-
-    def pop(self, key):
-        """the pop item"""
-        try:
-            return super(Objects, self).pop(key)
-        except Exception as e:
-            raise Exception("** no instance found **")
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from os import path
 
 
 class FileStorage:
+    """A class named FileStorage
+    Attributes:
+    attr1(__file_path): path to the JSON file
+    attr2(__objects): dictionary for all objects
     """
-    class to serializes instances to a JSON file and
-    deserializes JSON file to instances.
-    """
-
     __file_path = "file.json"
-    __objects = Objects()
-
-    def __init__(self):
-        """the initialze method"""
-        super().__init__()
+    __objects = {}
 
     def all(self):
-        """class to return the class atribute objects"""
-        return FileStorage.__objects
-
-    def reset(self):
-        """class to clear the cache  data on __object"""
-        self.__objects.clear()
+        """returns the dictionary __objects"""
+        return self.__objects
 
     def new(self, obj):
-        """class that sets in __objects the obj with key <obj class name>.id"""
-        if obj is not None:
-            key = '{}.{}'.format(type(obj).__name__, obj.id)
-            self.__objects[key] = obj
+        """sets in __objects the obj"""
+        self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
 
     def save(self):
-        """ class that serializes __objects to the JSON file """
-        file = FileStorage.__file_path
-
-        with open(file, mode="w", encoding="utf-8") as f:
-            f.write(
-                json.dumps(
-                    FileStorage.__objects,
-                    cls=models.base_model.BaseModelEncoder
-                    )
-                )
+        """serializes __objects dictionary to the JSON file"""
+        dictionary = {}
+        for key, value in self.__objects.items():
+            dictionary[key] = value.to_dict()
+        with open(self.__file_path, "w", encoding='utf-8') as w:
+            json.dump(dictionary, w)
 
     def reload(self):
-        """class that deserializes the JSON file to __objects"""
-
-        file = FileStorage.__file_path
-        if not os.path.exists(file):
-            return
+        """deserializes the JSON file to __objects"""
+        dictionaryofdictionaries = {}
+        classes = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review}
         try:
-            with open(file, mode="r+", encoding="utf-8") as f:
-                file_string = f.read()
-                data = json.loads(file_string)
-                for object_key, model_data in data.items():
-                    model_name, model_id = object_key.split('.')
-                    model = models.classes[model_name](**model_data)
-                    self.new(model)
+            with open(self.__file_path, "r") as r:
+                dictionaryofdictionaries = json.load(r)
+                for key, v in dictionaryofdictionaries.items():
+                    if v["__class__"] in classes:
+                        self.__objects[key] = classes[v["__class__"]](**v)
+        except:
+            pass
 
-        except Exception as e:
-            print(e)
-
-    def update(self, obj_name, obj_id, attr, value):
-        """class to update object with id `obj_id`"""
-        model = self.__objects["{}.{}".format(obj_name, obj_id)]
-        setattr(model, attr, value)
-
-    def find(self, obj_name, obj_id):
-        """class to find object with id `obj_id`"""
-        return self.__objects["{}.{}".format(obj_name, obj_id)]
-
-    def delete(self, obj_name, obj_id):
-        """
-        class to delete object with id `obj_id`
-        """
-        return self.__objects.pop("{}.{}".format(obj_name, obj_id))
+    def reset(self):
+        """Resets objects dict to empty dictionary"""
+        self.__objects = {}
