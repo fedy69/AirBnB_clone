@@ -17,9 +17,7 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(
-                            value,
-                            '%Y-%m-%dT%H:%M:%S.%f')
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 elif key == "__class__":
                     continue
 
@@ -41,7 +39,7 @@ class BaseModel:
         for key, value in self.__dict__.items():
             dict_repr[key] = value
             if isinstance(value, datetime):
-                dict_repr[key] = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
+                dict_repr[key] = value.strftime("%Y-%m-%dT%H:%M:%S.%f")
         dict_repr["__class__"] = type(self).__name__
         return dict_repr
 
@@ -52,11 +50,10 @@ class BaseModel:
 
 
 class BaseModelEncoder(JSONEncoder):
-    """The class JSON encoder
-    """
+    """The class JSON encoder"""
 
     def default(self, o):
-        """ The class default"""
+        """The class default"""
         if isinstance(o, BaseModel):
             return o.to_dict()
         return super().default(o)
