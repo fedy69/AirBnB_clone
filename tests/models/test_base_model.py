@@ -74,12 +74,12 @@ class TestBaseModelClass(unittest.TestCase):
         b1.name = "Holberton"
         b1.my_number = 89
         dictionary = b1.to_dict()
-        self.assertEqual('name' in dictionary, True)
-        self.assertEqual('my_number' in dictionary, True)
+        self.assertEqual("name" in dictionary, True)
+        self.assertEqual("my_number" in dictionary, True)
         b2 = BaseModel()
         dictionary2 = b2.to_dict()
-        self.assertEqual('name' in dictionary2, False)
-        self.assertEqual('my_number' in dictionary2, False)
+        self.assertEqual("name" in dictionary2, False)
+        self.assertEqual("my_number" in dictionary2, False)
 
     def test_strmethod(self):
         """This function tests the str method"""
@@ -87,40 +87,36 @@ class TestBaseModelClass(unittest.TestCase):
         self.assertEqual(type(str(b1)), str)
 
     def test_strmethod_clsname(self):
-        '''Tests if class name in str'''
+        """Tests if class name in str"""
         b1 = BaseModel()
-        self.assertEqual('[BaseModel]' in str(b1), True)
+        self.assertEqual("[BaseModel]" in str(b1), True)
 
     def test_strmethod_id(self):
-        '''Tests if id is in str representation'''
+        """Tests if id is in str representation"""
         b1 = BaseModel()
-        self.assertEqual('id' in str(b1), True)
+        self.assertEqual("id" in str(b1), True)
 
     def test_strmethod_created_at(self):
-        '''Tests if created_at is in str representation'''
+        """Tests if created_at is in str representation"""
         b1 = BaseModel()
-        self.assertEqual('created_at' in str(b1), True)
+        self.assertEqual("created_at" in str(b1), True)
 
     def test_strmethod_updated_at(self):
-        '''Tests if updated_at is in str representation'''
+        """Tests if updated_at is in str representation"""
         b1 = BaseModel()
-        self.assertEqual('updated_at' in str(b1), True)
+        self.assertEqual("updated_at" in str(b1), True)
 
     def test_strmethod_output(self):
-        '''Tests for expected output'''
+        """Tests for expected output"""
         b1 = BaseModel()
-        output = "[{}] ({}) {}".format(
-            b1.__class__.__name__,
-            b1.id,
-            b1.__dict__
-        )
+        output = "[{}] ({}) {}".format(b1.__class__.__name__, b1.id, b1.__dict__)
         self.assertEqual(output, str(b1))
 
     def test_savemethod(self):
         """This function tests the save method"""
         base1 = BaseModel()
         oldtime = base1.updated_at
-        sleep(.5)
+        sleep(0.5)
         base1.id = 98
         base1.save()
         newtime = base1.updated_at
@@ -128,7 +124,7 @@ class TestBaseModelClass(unittest.TestCase):
         self.assertTrue(base1.id == 98)
         self.assertNotEqual(oldtime, newtime)
         with open("file.json", "r", encoding="utf-8") as content:
-            self.assertTrue("\"id\": 98" in content.read())
+            self.assertTrue('"id": 98' in content.read())
 
     def test_updated_atviasavemethod(self):
         """This function tests that updated_at is updated via save method"""
@@ -147,10 +143,10 @@ class TestBaseModelClass(unittest.TestCase):
         """This function tests the todict method"""
         b1 = BaseModel()
         dictionary = b1.to_dict()
-        self.assertEqual('__class__' in dictionary, True)
-        self.assertEqual('id' in dictionary, True)
-        self.assertEqual('created_at' in dictionary, True)
-        self.assertEqual('updated_at' in dictionary, True)
+        self.assertEqual("__class__" in dictionary, True)
+        self.assertEqual("id" in dictionary, True)
+        self.assertEqual("created_at" in dictionary, True)
+        self.assertEqual("updated_at" in dictionary, True)
 
     def test_invalidargumentBaseModel(self):
         """This function tests exception thrown when arg passed to BaseModel"""
@@ -163,11 +159,12 @@ class TestBaseModelClass(unittest.TestCase):
         with self.assertRaises(TypeError) as e:
             b1 = BaseModel()
             b1.save("foo")
-        self.assertEqual(str(e.exception), "save() takes 1 positional" +
-                                           " argument but 2 were given")
+        self.assertEqual(
+            str(e.exception), "save() takes 1 positional" + " argument but 2 were given"
+        )
 
     def test_int_to_save(self):
-        '''This function tests int passed to save'''
+        """This function tests int passed to save"""
 
         with self.assertRaises(TypeError) as e:
             self.base1.save(89)
@@ -176,16 +173,19 @@ class TestBaseModelClass(unittest.TestCase):
         with self.assertRaises(TypeError) as e:
             b1.save(89)
 
-        self.assertEqual(str(e.exception), "save() takes 1 positional" +
-                                           " argument but 2 were given")
+        self.assertEqual(
+            str(e.exception), "save() takes 1 positional" + " argument but 2 were given"
+        )
 
     def test_toomanyargsfortodict(self):
         """This function tests exception thrown when arg passed to to_dict"""
         with self.assertRaises(TypeError) as e:
             b1 = BaseModel()
             b1.to_dict("foo")
-        self.assertEqual(str(e.exception), "to_dict() takes 1 positional" +
-                                           " argument but 2 were given")
+        self.assertEqual(
+            str(e.exception),
+            "to_dict() takes 1 positional" + " argument but 2 were given",
+        )
 
     def test_create_from_dict(self):
         """This function tests creating base_model from dict"""
