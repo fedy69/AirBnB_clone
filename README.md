@@ -1,9 +1,11 @@
 
-# 0x00. AirBnB clone - The Console
-   ![image](https://user-images.githubusercontent.com/91125384/157742851-c169b8d1-26f8-43ee-9614-fbb2ed0309a3.png)
+ 
 
+                                 ✍️ 🖇️  0x00. AirBnB clone - The Console 👥  🌟 ✍️   
+                                 
+  ![image](https://user-images.githubusercontent.com/91125384/157742851-c169b8d1-26f8-43ee-9614-fbb2ed0309a3.png)
 
-### About
+### About  🎓    🌠
 Command interpreter to manage AirBnb objects
 * Parent class (`BaseModel`) to take care of initialization, serialization, and deserialization of future instances
 * Flow of serialization/deserialization: Instance <-> Dictionary <-> JSON string <-> file
@@ -12,15 +14,15 @@ Command interpreter to manage AirBnb objects
 * Creates all unittests to validate all our classes and storage engine
 
 
-## Usage
+## Usage 🔭
 Like the Unix shell, the HBnB console works in both interactive and non-interactive modes. In interactive mode, it prints a prompt and waits for input from the user.
 
 
-#### Interactive Mode
+#### Interactive Mode 🖥️
 To begin interactive mode, run ```./console.py``` from the command line
 
 
-COMMAND | DESCRIPTION
+COMMAND | DESCRIPTION ✈️
 ----|----
 ```(hbnb) quit``` | Quits console
 ```(hbnb) EOF``` | Quits console via EOF
@@ -39,7 +41,7 @@ The commands create, show, destroy, all, and update can also be ran with the fol
 Running the ```update()``` function to create a new instance of 'middle_name' for the User class this way would look like this: 
 ```update.User("123-123-123-123", middle_name, Davmas)```
 
-#### Non-interactive Mode
+#### Non-interactive Mode 🚩
 From a bash-like command line echo ```"<command>"``` and pipe to ./console.py
 
 ```bash
@@ -52,17 +54,17 @@ EOF  all  count  create  destroy  help  quit  show  update
 ```
 
 
-## Running the Tests
+## Running the Tests 🛰️
 To run unittests for this program, cd into root directory and run the following command:
 `python3 -m unittest discover tests`
 
 Tests can be modified in the [tests](./tests/) directory
 
 
-## Files Used in this Project
+## Files Used in this Project 💐
 Models for all classes are located in the [models](./models/) directory.
 
-FILE | DESCRIPTION | ATTRIBUTES
+FILE | DESCRIPTION | ATTRIBUTES 
 ----|----|----
 [file_storage.py](./models/engine/file_storage.py) | Storage for saving information | __file_path, __objects
 [base_model.py](./models/base_model.py) | BaseModel class for all classes | id, created_at, updated_at
@@ -74,11 +76,12 @@ FILE | DESCRIPTION | ATTRIBUTES
 [review.py](./models/review.py) | Review class | place_id, user_id, text
 
 
-## Built With
+## Built With 🖌️
 * [Python 3.4.3](https://www.python.org/download/releases/3.0/) - Python3 Language
 * [PEP8 1.7](https://www.python.org/dev/peps/pep-0008/) - PEP8 style guide
 * [Ubuntu 14.04 LTS](http://releases.ubuntu.com/14.04/) - OS used
-Web static, what?
+
+Web static   ⚓
 
 Now that we have a command interpreter for managing your AirBnB objects, it’s time to make them alive!
 Before developing a big and complex web application, we will build the front end step-by-step.
@@ -104,6 +107,6 @@ Consequently, a static web page displays the same information for all users, fro
 
 During this project, we will learn how to manipulate HTML and CSS languages. HTML is the structure of your page, it should be the first thing to write. CSS is the styling of your page, the design. 
 
-### Authors
+### Authors 👥
 Eya zidi- [github.com/EyaZidi19](https://github.com/EyaZidi19) <br>
 Fedy chihaoui - [github.com/fedy69](https://github.com/fedy69)
