@@ -95,6 +95,8 @@ The first step is to “design” / “sketch” / “prototype” each element:
     Fewer or no dependencies on systems such as databases or other application servers 
     Cost savings from utilizing cloud storage, as opposed to a hosted environment
     Security configurations are easy to setup, which makes it more secure
+    Disadvantages of a static website
+    Dynamic functionality must be performed on the client side
 
 
 
