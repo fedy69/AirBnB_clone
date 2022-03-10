@@ -18,6 +18,7 @@ Like the Unix shell, the HBnB console works in both interactive and non-interact
 #### Interactive Mode
 To begin interactive mode, run ```./console.py``` from the command line
 
+
 COMMAND | DESCRIPTION
 ----|----
 ```(hbnb) quit``` | Quits console
