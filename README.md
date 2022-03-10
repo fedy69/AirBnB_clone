@@ -89,7 +89,19 @@ The first step is to “design” / “sketch” / “prototype” each element:
     No Javascript
     No data loaded from anything
 
+    Advantages of a static website
+    Provide improved security over dynamic websites (dynamic websites are at risk to web shell attacks if a vulnerability is present)
+    Improved performance for end users compared to dynamic websites
+    Fewer or no dependencies on systems such as databases or other application servers 
+    Cost savings from utilizing cloud storage, as opposed to a hosted environment
+    Security configurations are easy to setup, which makes it more secure
+
+
+
+
+
 During this project, we will learn how to manipulate HTML and CSS languages. HTML is the structure of your page, it should be the first thing to write. CSS is the styling of your page, the design. 
+
 ### Authors
 Eya zidi- [github.com/EyaZidi19](https://github.com/EyaZidi19) <br>
 Fedy chihaoui - [github.com/fedy69](https://github.com/fedy69)
