@@ -1,7 +1,6 @@
 
 # 0x00. AirBnB clone - The Console
 
-
 ### About
 Command interpreter to manage AirBnb objects
 * Parent class (`BaseModel`) to take care of initialization, serialization, and deserialization of future instances
